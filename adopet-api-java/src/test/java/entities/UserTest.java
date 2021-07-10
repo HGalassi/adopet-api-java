@@ -1,59 +1,98 @@
 package entities;
 
+import TestUtils.MockUser;
+import TestUtils.UserUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
 
 import static com.googlecode.catchexception.apis.BDDCatchException.caughtException;
 import static com.googlecode.catchexception.apis.BDDCatchException.when;
 import static org.assertj.core.api.BDDAssertions.then;
-import static org.mockito.BDDMockito.given;
 
 public class UserTest {
 
+    UserUtils utils = new UserUtils();
+
     @Test
-    public void shouldReturnFullName() throws Exception {
-        String name = "a Name";
-        String lastName = "a Last Name";
-        int age = 25;
-        String address = " Some Address Here";
-        User user = new User(name,lastName,age,address);
-        Assertions.assertTrue(user.getFullName(name,lastName).equals(name.concat(" ".concat(lastName))));
+    public void shouldThrowNameErrorWhenAdopter() throws Exception {
+        MockUser mock = new MockUser.UserBuilderTest().name("").build();
+        when(() ->  utils.getNew("Adopter", mock));
+        then(caughtException()).isInstanceOf(Exception.class).hasMessage("Invalid Name");
     }
 
     @Test
-    public void shouldAddValidFullName() throws Exception {
-        String name = "a Name";
-        String lastName = "a Last Name";
-        int age = 25;
-        String address = " Some Address Here";
-        User user = new User(name,lastName,age,address);
-        user.addFullName(name,lastName);
-        Assertions.assertTrue(user.getFullName(name,lastName).equals(name.concat(" ".concat(lastName))));
+    public void shouldThrowLastNameErrorWhenAdopter() throws Exception {
+        MockUser mock = new MockUser.UserBuilderTest().lastName("").build();
+        when(() ->  utils.getNew("Adopter", mock));
+        then(caughtException()).isInstanceOf(Exception.class).hasMessage("Invalid LastName");
     }
 
     @Test
-    public void shouldReturnOnlyFirstName() throws Exception {
-        String name = "a Name";
-        String lastName = "a Last Name";
-        int age = 25;
-        String address = " Some Address Here";
-        User user = new User(name,lastName,age,address);
+    public void shouldThrowAgeErrorWhenAdopter() throws Exception {
+        MockUser mock = new MockUser.UserBuilderTest().age(15).build();
+        when(() ->  utils.getNew("Adopter", mock));
+        then(caughtException()).isInstanceOf(Exception.class).hasMessage("Invalid age paw");
+    }
 
-        Assertions.assertTrue(user.getName().equals("a Name"));
+    @Test
+    public void shouldThrowAddressErrorWhenAdopter() throws Exception {
+        MockUser mock = new MockUser.UserBuilderTest().address("").build();
+        when(() ->  utils.getNew("Adopter", mock));
+        then(caughtException()).isInstanceOf(Exception.class).hasMessage("Invalid Address paw");
+    }
+
+    @Test
+    public void shouldThrowNameErrorWhenCaretaker() throws Exception {
+        MockUser mock = new MockUser.UserBuilderTest().name("").build();
+        when(() ->  utils.getNew("Caretaker", mock));
+        then(caughtException()).isInstanceOf(Exception.class).hasMessage("Invalid Name");
+    }
+
+    @Test
+    public void shouldThrowLastNameErrorWhenCaretaker() throws Exception {
+        MockUser mock = new MockUser.UserBuilderTest().lastName("").build();
+        when(() ->  utils.getNew("Adopter", mock));
+        then(caughtException()).isInstanceOf(Exception.class).hasMessage("Invalid LastName");
     }
 
 
-    //https://gist.github.com/mariuszs/7489190 sample
     @Test
-    public void shouldReturnValidatedAge() throws Exception {
-        String name = "a Name";
-        String lastName = "a Last Name";
-        int age = 15;
-        String address = " Some Address Here";
+    public void shouldThrowAgeErrorWhenCaretaker() throws Exception {
+        MockUser mock = new MockUser.UserBuilderTest().age(15).build();
+        when(() ->  utils.getNew("Caretaker", mock));
+        then(caughtException()).isInstanceOf(Exception.class).hasMessage("Invalid age paw");
+    }
 
-        when(() -> new User(name,lastName,age,address));
-        then(caughtException()).isInstanceOf(Exception.class).hasMessage("deu ruim");
+    @Test
+    public void shouldThrowAddressErrorWhenCaretaker() throws Exception {
+        MockUser mock = new MockUser.UserBuilderTest().address("").build();
+        when(() ->  utils.getNew("Caretaker", mock));
+        then(caughtException()).isInstanceOf(Exception.class).hasMessage("Invalid Address paw");
+    }
+
+    @Test
+    public void shouldNotThrowNameErrorWhenVisitor() throws Exception {
+        MockUser mock = new MockUser.UserBuilderTest().name("").build();
+        when(() ->  utils.getNew("Visitor", mock));
+        then(caughtException()).isInstanceOf(Exception.class).hasMessage("Invalid Name");
+    }
+
+    @Test
+    public void shouldNotThrowLastNameErrorWhenVisitor() throws Exception {
+        MockUser mock = new MockUser.UserBuilderTest().lastName("").build();
+        when(() ->  utils.getNew("Visitor", mock));
+        then(caughtException()).isInstanceOf(Exception.class).hasMessage("Invalid LastName");
+    }
+
+    @Test
+    public void shouldNotThrowAgeErrorWhenVisitor() throws Exception {
+        MockUser mock = new MockUser.UserBuilderTest().name("a Name").lastName("a Last Name").age(15).build();
+        Assertions.assertTrue(utils.getNew("Visitor", mock).getFullName().equals("a Name".concat(" ".concat("a Last Name"))));
+    }
+
+    @Test
+    public void shouldNotThrowAddressErrorWhenVisitor() throws Exception {
+        MockUser mock = new MockUser.UserBuilderTest().name("a Name").lastName("a Last Name").age(15).build();
+        Assertions.assertTrue(utils.getNew("Visitor", mock).getFullName().equals("a Name".concat(" ".concat("a Last Name"))));
     }
 }
