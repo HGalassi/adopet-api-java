@@ -8,14 +8,25 @@ public class Visitor extends User{
     }
 
     @Override
-    protected boolean shouldValidateAge() {
-        return false;
-    }
+    protected boolean shouldValidateAge() { return false; }
 
     @Override
-    protected boolean shouldValidateAddress() {
-        return false;
-    }
+    protected boolean shouldValidateAddress() { return false;}
+
+    @Override
+    protected boolean shouldValidateCellPhone() throws Exception { return true;}
+
+    @Override
+    protected boolean shouldValidateCity() { return true; }
+
+    @Override
+    protected boolean shouldValidateState() { return true;}
+
+    @Override
+    protected boolean shouldValidateRg() { return false; }
+
+    @Override
+    protected boolean shouldValidateCpf() { return false; }
 
     @Override
     protected String getInstanceAsString() {

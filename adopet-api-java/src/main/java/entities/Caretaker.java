@@ -18,6 +18,21 @@ public class Caretaker extends User {
     }
 
     @Override
+    protected boolean shouldValidateCellPhone() { return true; }
+
+    @Override
+    protected boolean shouldValidateCity() { return true; }
+
+    @Override
+    protected boolean shouldValidateState() { return true; }
+
+    @Override
+    protected boolean shouldValidateRg() { return true; }
+
+    @Override
+    protected boolean shouldValidateCpf() { return true; }
+
+    @Override
     protected String getInstanceAsString() {
         return "Caretaker";
     }

@@ -1,6 +1,6 @@
 package entities;
 
-public abstract class User {
+public abstract class User  {
 
     private String name;
     private String lastName;
@@ -36,50 +36,10 @@ public abstract class User {
             hasValidAge();
             hasValidAddress();
             hasValidCity();
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setNeighbourhood(String neighbourhood) {
-        this.neighbourhood = neighbourhood;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public void setRg(String rg) {
-        this.rg = rg;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public void setProfission(String profission) {
-        this.profission = profission;
-    }
-
-    public void setMaritalStatus(String maritalStatus) {
-        this.maritalStatus = maritalStatus;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setCellPhone(String cellPhone) {
-        this.cellPhone = cellPhone;
+            hasValidCellPhone();
+            hasValidState();
+            hasValidRg();
+            hasValidCpf();
     }
 
     private boolean isNameValid() throws Exception {
@@ -117,12 +77,90 @@ public abstract class User {
 
     protected abstract boolean shouldValidateAddress();
 
+    private boolean hasValidCellPhone() throws Exception {
+        return this.shouldValidateCellPhone() ? isCellPhoneValid() : true;
+    }
+
+    protected abstract boolean shouldValidateCellPhone() throws Exception;
+
+    private boolean isCellPhoneValid() throws Exception {
+        if (cellPhone.length() < 11){
+            throw new Exception("Invalid CellPhone paw");
+        }
+
+        formatCellphone();
+        return true;
+    }
+
+    private void formatCellphone() {
+        cellPhone = cellPhone.replaceFirst("(\\d{2})(\\d{5})(\\d+)", "($1)$2-$3");
+    }
+
+
+    private boolean hasValidRg() throws Exception {
+        return this.shouldValidateRg()?  isValidRg() : true;
+    }
+
+    private boolean isValidRg() throws Exception {
+        if(rg.isBlank() || rg.length() != 9){
+            throw new Exception("Invalid RG paw");
+        }
+
+        formatRG();
+        return true;
+    }
+
+    protected abstract boolean shouldValidateRg();
+
+    private void formatRG() {
+        rg = rg.replaceFirst("(\\d{2})(\\d{3})(\\d{3})(\\d+)", "$1.$2.$3-$4");
+    }
+
+    private void formatCPF() {
+        this.cpf = cpf.replaceFirst("(\\d{3})(\\d{3})(\\d{3})(\\d+)", "$1.$2.$3-$4");
+    }
+
     private boolean hasValidCity() throws Exception {
+        return this.shouldValidateCity()? isValidCity() : true;
+    }
+
+    protected abstract boolean shouldValidateCity();
+
+    private boolean isValidCity()throws Exception {
         if (city.isBlank() || city.length() < 3)
             throw new Exception ("Invalid City paw");
 
         return true;
     }
+
+    private boolean hasValidState() throws Exception{
+        return this.shouldValidateState()? isValidState() : true;
+    }
+
+    private boolean isValidState() throws Exception{
+        if(state.isBlank() || state.length()!= 2){
+            throw new Exception("Invalid State paw");
+        }
+
+        return true;
+    }
+
+    protected abstract boolean shouldValidateState();
+    
+    private boolean hasValidCpf() throws Exception{
+        return this.shouldValidateCpf()? isValidCpf() : true;
+    }
+
+    private boolean isValidCpf() throws Exception {
+        if(cpf.isBlank() || cpf.length()!=11){
+            throw new Exception("Wrong CPF paw");
+        }
+        formatCPF();
+        return true;
+    }
+
+    protected abstract boolean shouldValidateCpf();
+
 
     protected String getFullName() {
         return name.concat(" ".concat(lastName));
@@ -136,6 +174,27 @@ public abstract class User {
         return this.name;
     }
 
+    protected String getCellPhone() { return this.cellPhone;}
+
     protected abstract String getInstanceAsString();
 
+    public int getAge() { return age; }
+
+    public String getAddress() { return address; }
+
+    public String getNeighbourhood() { return neighbourhood; }
+
+    public String getCity() { return city; }
+
+    public String getState() { return state; }
+
+    public String getRg() { return rg; }
+
+    public String getCpf() { return cpf; }
+
+    public String getProfission() { return profission; }
+
+    public String getMaritalStatus() { return maritalStatus; }
+
+    public String getPhone() { return phone;}
 }

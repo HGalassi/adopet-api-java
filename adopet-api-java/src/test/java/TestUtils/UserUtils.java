@@ -16,12 +16,12 @@ public class UserUtils {
         String neighbourhood = null == mock.getNeighbourhood() ? "Some neighbourhood here" : mock.getNeighbourhood();
         String city = null == mock.getCity() ? "Jundicity" : mock.getCity();
         String state = null == mock.getState() ? "SP" : mock.getState();
-        String rg = null == mock.getRg() ? "00.111.222-3" : mock.getRg();
-        String cpf = null == mock.getCpf() ? "111.222.333-44" : mock.getCpf();
+        String rg = null == mock.getRg() ? "001112223" : mock.getRg();
+        String cpf = null == mock.getCpf() ? "11122233344" : mock.getCpf();
         String profission = null == mock.getProfission() ? "Fisher" : mock.getProfission();
         String maritalStatus = null == mock.getMaritalStatus() ? "Single" : mock.getMaritalStatus();
-        String phone = null == mock.getPhone() ? "(11)-1122-3344" : mock.getPhone();
-        String cellPhone = null == mock.getCellPhone() ? "(11)-9-9999-8888" : mock.getCellPhone();
+        String phone = null == mock.getPhone() ? "1111223344" : mock.getPhone();
+        String cellPhone = null == mock.getCellPhone() ? "11999998888" : mock.getCellPhone();
 
         switch (userOf) {
             case "Adopter":
