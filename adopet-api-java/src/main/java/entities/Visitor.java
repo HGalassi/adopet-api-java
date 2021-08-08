@@ -1,5 +1,7 @@
 package entities;
 
+import javax.persistence.Embeddable;
+
 public class Visitor extends User{
 
     public Visitor(String name, String lastName, int age, String address, String neighbourhood, String city, String state, String rg,

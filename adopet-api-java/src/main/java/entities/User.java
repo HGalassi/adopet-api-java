@@ -1,20 +1,48 @@
 package entities;
 
+import javax.persistence.Id;
+
+import javax.persistence.*;
+
+import static javax.persistence.GenerationType.IDENTITY;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public abstract class User  {
 
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "id", updatable = false, nullable = false)
+    private Long id ;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false, name = "last_name")
     private String lastName;
+    @Column(nullable = false)
     private int age;
+    @Column(nullable = false)
     private String address;
+    @Column(nullable = false)
     private String neighbourhood;
+    @Column(nullable = false)
     private String city;
+    @Column(nullable = false)
     private String state;
+    @Column(nullable = false)
     private String rg;
+    @Column(nullable = false)
     private String cpf;
+    @Column(nullable = false)
     private String profission;
+    @Column(nullable = false, name = "marital_status")
     private String maritalStatus;
+    @Column(nullable = false)
     private String phone;
+    @Column(nullable = false, name = "cell_phone")
     private String cellPhone;
+    @JoinColumn
+    private Long adopterId;
+
 
     public User(String name, String lastName, int age, String address, String neighbourhood, String city,
                 String state, String rg, String cpf, String profission, String maritalStatus, String phone, String cellPhone) throws Exception {
@@ -197,4 +225,7 @@ public abstract class User  {
     public String getMaritalStatus() { return maritalStatus; }
 
     public String getPhone() { return phone;}
+
+    public Long getId() {return id;}
+
 }

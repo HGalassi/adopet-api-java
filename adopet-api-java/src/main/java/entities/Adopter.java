@@ -1,7 +1,16 @@
 package entities;
 
+import org.hibernate.annotations.SQLInsert;
+
+import javax.persistence.*;
+
+import static javax.persistence.GenerationType.AUTO;
+
+@Entity
+@PrimaryKeyJoinColumn(name = "adopterId")
+@DiscriminatorValue("Adopter")
 public class Adopter extends User{
-    
+
     public Adopter(String name, String lastName, int age, String address, String neighbourhood, String city, String state, String rg,
                    String cpf, String profission, String maritalStatus, String phone, String cellPhone) throws Exception {
         super(name, lastName, age, address, neighbourhood, city, state, rg, cpf, profission, maritalStatus, phone, cellPhone);

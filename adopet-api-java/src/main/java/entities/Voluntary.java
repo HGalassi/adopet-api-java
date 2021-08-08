@@ -1,5 +1,7 @@
 package entities;
 
+import javax.persistence.Embeddable;
+
 public abstract class Voluntary extends User {
 
     public Voluntary(String name, String lastName, int age, String address, String neighbourhood, String city, String state,
